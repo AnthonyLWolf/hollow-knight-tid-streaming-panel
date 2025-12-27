@@ -1,14 +1,21 @@
 // Streamerbot Hotkeys connection
 
-// modules/hotkeys-streamerbot.js
-export function connectStreamerBotHotkeys({ port = 8080 } = {}) {
-  const ws = new WebSocket(`ws://127.0.0.1:${port}`);
+let sbSocket = null; // Module=level guard
 
-  ws.addEventListener("open", () => {
+export function connectStreamerBotHotkeys({ port = 8080 } = {}) {
+    // Connection guard
+    if (sbSocket && sbSocket.readyState === WebSocket.OPEN) {
+        console.warn("[SB] WebSocket already connected");
+        return sbSocket;
+    }
+
+    sbSocket = new WebSocket(`ws://127.0.0.1:${port}`);
+
+    sbSocket.addEventListener("open", () => {
     console.log("[SB] connected");
 
     // Subscribe to action events
-    ws.send(JSON.stringify({
+    sbSocket.send(JSON.stringify({
       request: "Subscribe",
       id: "hk-sub-1",
       events: {
@@ -17,7 +24,7 @@ export function connectStreamerBotHotkeys({ port = 8080 } = {}) {
     }));
   });
 
-  ws.addEventListener("message", (event) => {
+  sbSocket.addEventListener("message", (event) => {
     let msg;
     try { msg = JSON.parse(event.data); } catch { return; }
 
@@ -48,16 +55,30 @@ export function connectStreamerBotHotkeys({ port = 8080 } = {}) {
         case "HK_AttemptReset":
             window.panel?.resetAttempts?.();
             break;
-    }
-    if (actionName === "HK_AttemptPlus") window.panel?.incrementAttempts?.();
-    if (actionName === "HK_TimerToggle") {
-      if (window.panel?.state?.timerRunning) window.panel.stopTimer();
-      else window.panel?.startTimer?.();
+        case "HK_TimerToggle":
+            if (window.panel?.state?.timerRunning) window.panel.stopTimer();
+            else window.panel?.startTimer?.();
+            break;
+        case "HK_TimerReset":
+            window.panel?.resetTimer?.();
+            break;
+        case "HK_PanelReset":
+            window.panel?.resetPanel?.();
+            break;
+        case "HK_TogglePanel":
+            window.panel?.togglePanelVisibility?.();
+            break;
     }
   });
 
-  ws.addEventListener("error", (e) => console.warn("[SB] ws error", e));
-  ws.addEventListener("close", () => console.log("[SB] disconnected"));
+  sbSocket.addEventListener("error", (e) =>
+    console.warn("[SB] ws error", e)
+  );
 
-  return ws;
+  sbSocket.addEventListener("close", () => {
+    console.log("[SB] disconnected");
+    sbSocket = null; // Allow reconnection on reload
+  });
+
+  return sbSocket;
 }
