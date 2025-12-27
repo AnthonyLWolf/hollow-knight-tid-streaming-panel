@@ -2,21 +2,21 @@
     font-family: 'Digitalix';
     src: 
         local("Digitalix"),
-        url(../assets/fonts/digitalix.ttf) format("truetype");
+        url(../panel/assets/fonts/digitalix.ttf) format("truetype");
 }
 
 @font-face {
     font-family: 'Poppins';
     src: 
         local("Poppins"),
-        url(../assets/fonts/Poppins-Regular.ttf) format("truetype");
+        url(../panel/assets/fonts/Poppins-Regular.ttf) format("truetype");
 }
 
 @font-face {
     font-family: 'Poppins';
     src: 
         local("Poppins"),
-        url(../assets/fonts/Poppins-SemiBoldItalic.ttf) format("truetype");
+        url(../panel/assets/fonts/Poppins-SemiBoldItalic.ttf) format("truetype");
 }
 
 html {

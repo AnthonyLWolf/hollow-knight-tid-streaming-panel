@@ -1,5 +1,7 @@
 // main.js (v0 foundation)
 
+const STORAGE_KEY = "hk_panel_state_v1";
+
 const ui = {
     attemptsValue: document.getElementById("attemptsValue"),
     timerValue: document.getElementById("timerValue"),
@@ -11,6 +13,14 @@ const state = {
     timerSeconds: 0,
     timerRunning: false,
     bosses: [], // tomorrow
+}
+
+function saveState() {
+    // TODO: localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function loadState() {
+    // TODO: read from localStorage and merge into state
 }
 
 // Render functions (tiny on purpose)
@@ -26,6 +36,7 @@ function renderTimer() {
 // Increments function
 function incrementAttempts() {
     state.attempts += 1;
+    // TODO: saveState();
     renderAttempts();
     console.log(`Attempts: ${state.attempts}`);
 }
@@ -37,6 +48,7 @@ function init() {
         return;
     }
 
+    loadState();
     renderAttempts();
     renderTimer();
 
