@@ -33,9 +33,25 @@ function renderTimer() {
     ui.timerValue.textContent = "00:00:00";
 }
 
-// Increments function
+// Increment function
 function incrementAttempts() {
     state.attempts += 1;
+    // TODO: saveState();
+    renderAttempts();
+    console.log(`Attempts: ${state.attempts}`);
+}
+
+// Decrease function just in case
+function decreaseAttempts() {
+    state.attempts -= 1;
+    // TODO: saveState();
+    renderAttempts();
+    console.log(`Attempts: ${state.attempts}`);
+}
+
+// Reset function just in case
+function decreaseAttempts() {
+    state.attempts = 1;
     // TODO: saveState();
     renderAttempts();
     console.log(`Attempts: ${state.attempts}`);
