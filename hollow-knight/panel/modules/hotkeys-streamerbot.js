@@ -65,7 +65,7 @@ export function connectStreamerBotHotkeys({ port = 8080 } = {}) {
         case "HK_PanelReset":
             window.panel?.resetPanel?.();
             break;
-        case "HK_TogglePanel":
+        case "HK_PanelToggle":
             window.panel?.togglePanelVisibility?.();
             break;
     }
