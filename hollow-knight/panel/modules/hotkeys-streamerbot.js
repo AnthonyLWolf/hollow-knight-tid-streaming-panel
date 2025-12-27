@@ -1,4 +1,4 @@
-// Streamerbot Hotkeys connection
+// Streamerbot Hotkeys connection, I have no idea what this does but it works
 
 let sbSocket = null; // Module=level guard
 
@@ -9,21 +9,23 @@ export function connectStreamerBotHotkeys({ port = 8080 } = {}) {
         return sbSocket;
     }
 
+    // Establishes connection
     sbSocket = new WebSocket(`ws://127.0.0.1:${port}`);
 
     sbSocket.addEventListener("open", () => {
     console.log("[SB] connected");
 
-    // Subscribe to action events
+    // Subscribe to action events so we get action hotkey results
     sbSocket.send(JSON.stringify({
       request: "Subscribe",
       id: "hk-sub-1",
       events: {
-        raw: ["ActionCompleted"] // or ["Action"] if you prefer
+        raw: ["ActionCompleted"]
       }
     }));
   });
 
+  // Listens for message
   sbSocket.addEventListener("message", (event) => {
     let msg;
     try { msg = JSON.parse(event.data); } catch { return; }
@@ -40,10 +42,10 @@ export function connectStreamerBotHotkeys({ port = 8080 } = {}) {
 
     if (source !== "Raw" || type !== "ActionCompleted") return;
 
-    const actionName = data?.name;     // may be null in docs examples; depends on your config :contentReference[oaicite:5]{index=5}
-    const actionId   = data?.actionId; // always there :contentReference[oaicite:6]{index=6}
+    const actionName = data?.name;
+    const actionId   = data?.actionId;
 
-    // EITHER match by name (easy) OR by id (bulletproof)
+    // Switch case to match actions from Streamer.bot, will need to be rewritten if changing action names
     switch (actionName) {
         // Counter hotkeys
         case "HK_AttemptPlus":
@@ -92,6 +94,7 @@ export function connectStreamerBotHotkeys({ port = 8080 } = {}) {
     }
   });
 
+  // Handles errors connections
   sbSocket.addEventListener("error", (e) =>
     console.warn("[SB] ws error", e)
   );

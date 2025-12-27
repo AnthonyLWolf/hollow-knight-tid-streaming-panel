@@ -1,7 +1,9 @@
 // State logic
 
-const STORAGE_KEY = "hk_panel_state_v1";
+// Storage key for local storage state
+export const STORAGE_KEY = "hk_panel_state_v1";
 
+// Main state class
 export const state = {
     attempts: 1,
     startTimestamp: 0,
@@ -11,6 +13,7 @@ export const state = {
     bossesDefeated: {}, // { [bossID]: true }, checks if boss is present and defeated
 }
 
+// Saves current state to memory
 export function saveState() {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -21,6 +24,7 @@ export function saveState() {
     console.log("State saved");
 }
 
+// Loads latest state from local storage
 export function loadState() {
     try {
         const raw = localStorage.getItem(STORAGE_KEY);

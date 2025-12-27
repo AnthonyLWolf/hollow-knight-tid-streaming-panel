@@ -1,22 +1,25 @@
 // main.js (v1)
 
+// Dependencies
 import { connectStreamerBotHotkeys } from "./modules/hotkeys-streamerbot.js"
 import { togglePanelVisibility, animatePanelReset } from "./modules/panel.js";
-import { state, saveState, loadState } from "./data/state.js";
+import { state, saveState, loadState, STORAGE_KEY } from "./data/state.js";
 import { incrementAttempts, decreaseAttempts, resetAttempts } from "./modules/attempts.js";
 import { formatTime, startTimer, stopTimer, setTimer, resetTimer, renderInterval, timerSaveInterval } from "./modules/timer.js";
 import { renderBossGrid, selectNextBoss, selectPreviousBoss, selectBossDown, selectBossUp, toggleBoss, resetBosses } from "./modules/bosses.js";
 import { HK_BOSSES } from "./data/bosses-data.js";
 
+// UI elements for panel logic
 const ui = {
     attemptsValue: document.getElementById("attemptsValue"),
     timerValue: document.getElementById("timerValue"),
     bossGrid: document.getElementById("bossGrid"),
 };
 
+// Columns for navigation
 const BOSS_COLUMNS = 4;
 
-// Render functions
+// Smol render functions
 export function renderAttempts() {
     ui.attemptsValue.textContent = String(state.attempts);
 }
@@ -81,7 +84,7 @@ function init() {
         return;
     }
 
-
+    // Initial UI check for HTML document
     if (!ui.attemptsValue || !ui.timerValue || !ui.bossGrid) {
         console.error("UI hooks missing. Check your IDs in HTML.");
         return;
@@ -120,18 +123,22 @@ function init() {
     // Exposing controls
     window.panel = {
         state,
+        // Counter controls
         incrementAttempts,
         decreaseAttempts,
         resetAttempts,
 
+        // Timer controls
         startTimer,
         stopTimer,
         resetTimer,
         setTimer,
 
+        // UI panel controls
         togglePanelVisibility,
         resetPanel,
 
+        // Boss grid controls
         bossRight: moveBossSelectionRight,
         bossLeft: moveBossSelectionLeft,
         bossUp: moveBossSelectionUp,
@@ -150,9 +157,10 @@ function init() {
         location.reload();
     };
 
-
+    // Initiates Streamer.bot hotkeys connection
     connectStreamerBotHotkeys({ port: 8080 });
 
+    // Final boot message
     console.log("Panel loaded. Try panel.[command]()");
 }
 

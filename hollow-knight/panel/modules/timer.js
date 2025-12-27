@@ -1,30 +1,38 @@
 // Timer logic
 
+// Dependencies
 import { state, saveState, loadState } from "../data/state.js";
 import { renderTimer } from "../main.js";
 
+// Timer intervals for calculations
 export let renderInterval = null;
 export let timerSaveInterval = null;
 
+// Formats time calculating by milliseconds
 export function formatTime(ms) {
     const hours = Math.floor(ms / 3600000);
     const minutes = Math.floor((ms % 3600000) / 60000);
     const seconds = Math.floor((ms % 60000) / 1000);
     const centiseconds = Math.floor((ms % 1000) / 10);
 
+    // Pads digits by a minimum of two
     const pad = (n) => String(n).padStart(2, "0");
 
+    // Formats final string
     return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}.${pad(centiseconds)}`;
 }
 
+// Starts the timer
 export function startTimer() {
     if (state.timerRunning) {
         return;
     }
 
+    // Grabs timestamp and initiates running boolean
     state.startTimestamp = Date.now();
     state.timerRunning = true;
 
+    // Interval check, renders timer every 10ms for fluidity
     if (!renderInterval) {
         renderInterval = setInterval(renderTimer, 10);
     }
@@ -32,10 +40,12 @@ export function startTimer() {
         timerSaveInterval = setInterval(saveState, 2000);
     }
 
+    // Saves to local storage for later
     saveState();
     console.log("Timer started");
 }
 
+// Stops timer and clears all intervals
 export function stopTimer() {
     if (!state.timerRunning) {
         return;
@@ -60,6 +70,7 @@ export function stopTimer() {
 
 }
 
+// Resets timer to 00:00:00.00
 export function resetTimer() {
     state.elapsedBefore = 0;
     state.startTimestamp = null;

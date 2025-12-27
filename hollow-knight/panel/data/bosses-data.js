@@ -1,5 +1,6 @@
 // Bosses data
 
+// Structure: id, name, image source path
 export const HK_BOSSES = [
     { id: "false_knight", name: "False Knight", img: "assets/bosses/false_knight.png" },
     { id: "gruz_mother", name: "Gruz Mother", img: "assets/bosses/gruz_mother.webp"},
