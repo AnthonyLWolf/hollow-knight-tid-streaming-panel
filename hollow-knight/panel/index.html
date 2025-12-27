@@ -11,15 +11,15 @@
         <div class="panel-container">
             <div class="module module--attempts-counter">
                 <h1 class="module__title">Attempts:</h1>
-                <p class="module__value">1</p>
+                <p class="module__value" id="attemptsValue">1</p>
             </div>
             <div class="module module--run-timer">
                 <h1 class="module__title">Timer:</h1>
-                <p class="module__value">00:00:00</p>
+                <p class="module__value" id="timerValue">00:00:00</p>
             </div>
             <div class="module module--bosses-list">
                 <h1 class="module__title">Bosses:</h1>
-                <div class="boss-grid">
+                <div class="boss-grid" id="bossGrid">
                     <div class="boss-tile"></div>
                     <div class="boss-tile"></div>
                     <div class="boss-tile"></div>
@@ -44,6 +44,6 @@
             </div>
         </div>
         
-        <script type="module" src="main.js" defer></script>
+        <script type="module" src="main.js"></script>
     </body>
 </html>
