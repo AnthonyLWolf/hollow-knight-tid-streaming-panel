@@ -45,6 +45,12 @@ body {
     width: 20vw;
 }
 
+.panel-hidden {
+    transform: translateX(110%);
+    opacity: 0;
+    pointer-events: none;
+}
+
 .module {
     margin-bottom: 32px;
     font-family: 'Poppins';

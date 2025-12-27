@@ -2,7 +2,8 @@
 
 import { connectStreamerBotHotkeys } from "./modules/hotkeys-streamerbot.js"
 import { state, saveState, loadState } from "./data/state.js";
-import { formatTime, startTimer, stopTimer, setTimer, resetTimer } from "./modules/timer.js";
+import { togglePanelVisibility } from "./modules/panel.js";
+import { formatTime, startTimer, stopTimer, setTimer, resetTimer, renderInterval, timerSaveInterval } from "./modules/timer.js";
 
 const ui = {
     attemptsValue: document.getElementById("attemptsValue"),
@@ -49,19 +50,43 @@ function resetAttempts() {
     console.log(`Attempts: ${state.attempts}`);
 }
 
+// Resets entire layout
 function resetPanel() {
     resetAttempts();
     resetTimer();
+    // TODO: resetBosses();
 }
 
 // Boot
 function init() {
+    // HARD RESET SAFETY
+    if (window.__PANEL_BOOTED__) {
+        console.warn("Panel already booted - aborting duplicate init");
+        return;
+    }
+
+
     if (!ui.attemptsValue || !ui.timerValue || !ui.bossGrid) {
         console.error("UI hooks missing. Check your IDs in HTML.");
         return;
     }
 
     loadState();
+
+    // Browser source reload = timer must stop
+    state.timerRunning = false;
+    state.startTimestamp = null;
+
+    // Clear any stray intervals
+    if (renderInterval) {
+        clearInterval(renderInterval);
+        renderInterval = null;
+    }
+    if (timerSaveInterval) {
+        clearInterval(timerSaveInterval);
+        timerSaveInterval = null;
+    }
+
     renderAttempts();
     renderTimer();
 
@@ -72,6 +97,7 @@ function init() {
         timerSaveInterval = setInterval(saveState, 2000);
     }
 
+    // Exposing controls
     window.panel = {
         state,
         incrementAttempts,
@@ -83,8 +109,16 @@ function init() {
         resetTimer,
         setTimer,
 
+        togglePanelVisibility,
         resetPanel,
     };
+
+    // Emergency kill switch
+    window.panel.hardReset = () => {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+    };
+
 
     connectStreamerBotHotkeys({ port: 8080 });
 

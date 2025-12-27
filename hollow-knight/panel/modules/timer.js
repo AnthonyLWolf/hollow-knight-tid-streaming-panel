@@ -3,8 +3,8 @@
 import { state, saveState, loadState } from "../data/state.js";
 import { renderTimer } from "../main.js";
 
-let renderInterval = null;
-let timerSaveInterval = null;
+export let renderInterval = null;
+export let timerSaveInterval = null;
 
 export function formatTime(ms) {
     const hours = Math.floor(ms / 3600000);
@@ -27,6 +27,8 @@ export function startTimer() {
 
     if (!renderInterval) {
         renderInterval = setInterval(renderTimer, 10);
+    }
+    if (!timerSaveInterval) {
         timerSaveInterval = setInterval(saveState, 2000);
     }
 
@@ -45,8 +47,10 @@ export function stopTimer() {
 
     if (renderInterval) {
         clearInterval(renderInterval);
-        clearInterval(timerSaveInterval);
         renderInterval = null;
+    }
+    if (timerSaveInterval) {
+        clearInterval(timerSaveInterval);
         timerSaveInterval = null;
     }
 
