@@ -45,16 +45,18 @@ export function connectStreamerBotHotkeys({ port = 8080 } = {}) {
 
     // EITHER match by name (easy) OR by id (bulletproof)
     switch (actionName) {
+        // Counter hotkeys
         case "HK_AttemptPlus":
             window.panel?.incrementAttempts?.();
             break;
-
         case "HK_AttemptMinus":
             window.panel?.decreaseAttempts?.();
             break;
         case "HK_AttemptReset":
             window.panel?.resetAttempts?.();
             break;
+
+        // Timer hotkeys
         case "HK_TimerToggle":
             if (window.panel?.state?.timerRunning) window.panel.stopTimer();
             else window.panel?.startTimer?.();
@@ -62,6 +64,25 @@ export function connectStreamerBotHotkeys({ port = 8080 } = {}) {
         case "HK_TimerReset":
             window.panel?.resetTimer?.();
             break;
+
+        // Boss grid hotkeys
+        case "HK_SelectRight":
+          window.panel?.bossRight?.();
+          break;
+        case "HK_SelectLeft":
+          window.panel?.bossLeft?.();
+          break;
+        case "HK_SelectUp":
+          window.panel?.bossUp?.();
+          break;
+        case "HK_SelectDown":
+          window.panel?.bossDown?.();
+          break;
+        case "HK_ToggleSelect":
+          window.panel?.selectBoss?.();
+          break;
+        
+        // Panel hotkeys
         case "HK_PanelReset":
             window.panel?.resetPanel?.();
             break;

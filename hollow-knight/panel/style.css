@@ -51,6 +51,25 @@ body {
     pointer-events: none;
 }
 
+.panel-container.is-resetting {
+  animation: panel-reset 180ms ease-out;
+}
+
+@keyframes panel-reset {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.92;
+    transform: scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .module {
     margin-bottom: 32px;
     font-family: 'Poppins';
@@ -70,11 +89,25 @@ body {
     font-style: italic;
 }
 
+/* TODO: Implement these 3 animations properly when there's time */
+.module--attempts-counter .module__value {
+  transition: transform 120ms ease-out;
+}
+
+.module--attempts-counter.is-bump .module__value {
+  transform: scale(1.15);
+}
+
+.module--run-timer.is-running {
+  box-shadow: 0 0 10px rgba(98, 223, 245, 0.6);
+}
+
 .module--bosses-list {
     margin-top: auto;
     margin-bottom: 0;
 }
 
+/* BOSS GRID STYLE */
 .boss-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -87,6 +120,7 @@ body {
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    transition: transform 120ms ease-out, filter 120ms ease-out;
 }
 
 .boss-tile img {
@@ -100,4 +134,17 @@ body {
 .boss-tile.is-defeated img {
     filter: grayscale(100%);
     opacity: 0.25;
+    transition: filter 200ms ease-out, transform 200ms ease-out;
+}
+
+.boss-tile.is-defeated {
+    transform: scale(0.94);
+}
+
+.boss-tile.is-selected {
+    outline: 3px solid #ed254e;
+    outline-offset: 4px;
+    border-radius: 8px;
+    box-shadow: 0 0 2px rgba(237, 37, 78, 0.5);
+    transform: scale(1.06);
 }

@@ -7,6 +7,7 @@ export const state = {
     startTimestamp: 0,
     elapsedBefore: 0,
     timerRunning: false,
+    selectedBossIndex: 0,
     bossesDefeated: {}, // { [bossID]: true }, checks if boss is present and defeated
 }
 
@@ -41,6 +42,12 @@ export function loadState() {
         }
         if (Array.isArray(parsed.bosses)) {
             state.bosses = parsed.bosses;
+        }
+        if (typeof parsed.selectedBossIndex === "number") {
+            state.selectedBossIndex = parsed.selectedBossIndex;
+        }
+        if (parsed.bossesDefeated && typeof parsed.bossesDefeated === "object") {
+            state.bossesDefeated = parsed.bossesDefeated;
         }
     } catch (err) {
         console.warn("loadState failed (bad JSON or blocked storage):", err)
