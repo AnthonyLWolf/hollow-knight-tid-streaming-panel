@@ -2,7 +2,7 @@
 
 // Dependencies
 import { connectStreamerBotHotkeys } from "./modules/hotkeys-streamerbot.js"
-import { togglePanelVisibility, animatePanelReset } from "./modules/panel.js";
+import { togglePanelVisibility, animatePanelReset, renderDebugOverlay, toggleDebugOverlay } from "./modules/panel.js";
 import { state, saveState, loadState, STORAGE_KEY } from "./data/state.js";
 import { incrementAttempts, decreaseAttempts, resetAttempts } from "./modules/attempts.js";
 import { formatTime, startTimer, stopTimer, setTimer, resetTimer, renderInterval, timerSaveInterval } from "./modules/timer.js";
@@ -22,6 +22,7 @@ const BOSS_COLUMNS = 4;
 // Smol render functions
 export function renderAttempts() {
     ui.attemptsValue.textContent = String(state.attempts);
+    renderDebugOverlay(); // Refreshes debug menu
 }
 
 export function renderTimer() {
@@ -32,6 +33,7 @@ export function renderTimer() {
     }
 
     ui.timerValue.textContent = formatTime(elapsed);
+    renderDebugOverlay(); // Refreshes debug menu
 }
 
 // Resets entire layout
@@ -144,6 +146,9 @@ function init() {
         bossUp: moveBossSelectionUp,
         bossDown: moveBossSelectionDown,
         selectBoss: toggleSelectedBoss,
+
+        // Debug overlay
+        toggleDebug: toggleDebugOverlay,
     };
 
     // Control to reset bosses grid

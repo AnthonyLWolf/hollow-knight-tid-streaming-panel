@@ -2,6 +2,7 @@
 
 // Imports bosses data
 import { HK_BOSSES } from "../data/bosses-data.js";
+import { renderDebugOverlay } from "./panel.js";
 
 // Renders boss grid based on CSS rules
 export function renderBossGrid(container, state, saveState) {
@@ -36,6 +37,8 @@ export function renderBossGrid(container, state, saveState) {
 
         container.appendChild(tile);
     });
+
+    renderDebugOverlay(); // Refreshes debug menu
 }
 
 // Selection functions based on grid index

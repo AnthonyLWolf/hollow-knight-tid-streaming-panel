@@ -10,7 +10,10 @@ export const state = {
     elapsedBefore: 0,
     timerRunning: false,
     selectedBossIndex: 0,
-    bossesDefeated: {}, // { [bossID]: true }, checks if boss is present and defeated
+    bossesDefeated: {}, // { [bossID]: true }, checks if boss is present and defeated/
+
+    // Sets up debug panel
+    debugVisible: false,
 }
 
 // Saves current state to memory

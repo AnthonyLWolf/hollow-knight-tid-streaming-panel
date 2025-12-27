@@ -148,3 +148,25 @@ body {
     box-shadow: 0 0 2px rgba(237, 37, 78, 0.5);
     transform: scale(1.06);
 }
+
+/* DEBUG PANEL STYLE */
+.debug-overlay {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    z-index: 999;
+
+    background: rgba(0, 0, 0, 0.7);
+    color: #eaeaea;
+    font-family: monospace;
+    font-size: 0.75rem;
+    line-height: 1.4;
+
+    padding: 8px 10px;
+    border-radius: 6px;
+    pointer-events: none;
+}
+
+.debug-overlay.hidden {
+    display: none;
+}
