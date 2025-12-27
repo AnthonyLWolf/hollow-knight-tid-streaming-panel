@@ -1,6 +1,8 @@
 // main.js (v0 foundation)
 
-const STORAGE_KEY = "hk_panel_state_v1";
+import { connectStreamerBotHotkeys } from "./modules/hotkeys-streamerbot.js"
+import { state, saveState, loadState } from "./data/state.js";
+import { formatTime, startTimer, stopTimer, setTimer, resetTimer } from "./modules/timer.js";
 
 const ui = {
     attemptsValue: document.getElementById("attemptsValue"),
@@ -8,35 +10,25 @@ const ui = {
     bossGrid: document.getElementById("bossGrid"),
 };
 
-const state = {
-    attempts: 1,
-    timerSeconds: 0,
-    timerRunning: false,
-    bosses: [], // tomorrow
-}
-
-function saveState() {
-    // TODO: localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-function loadState() {
-    // TODO: read from localStorage and merge into state
-}
-
 // Render functions (tiny on purpose)
 function renderAttempts() {
     ui.attemptsValue.textContent = String(state.attempts);
 }
 
-function renderTimer() {
-    // TODO: Format HH:MM:SS
-    ui.timerValue.textContent = "00:00:00";
+export function renderTimer() {
+    let elapsed = state.elapsedBefore;
+
+    if (state.timerRunning && state.startTimestamp) {
+        elapsed += Date.now() - state.startTimestamp;
+    }
+
+    ui.timerValue.textContent = formatTime(elapsed);
 }
 
 // Increment function
 function incrementAttempts() {
     state.attempts += 1;
-    // TODO: saveState();
+    saveState();
     renderAttempts();
     console.log(`Attempts: ${state.attempts}`);
 }
@@ -44,17 +36,22 @@ function incrementAttempts() {
 // Decrease function just in case
 function decreaseAttempts() {
     state.attempts -= 1;
-    // TODO: saveState();
+    saveState();
     renderAttempts();
     console.log(`Attempts: ${state.attempts}`);
 }
 
 // Reset function just in case
-function decreaseAttempts() {
+function resetAttempts() {
     state.attempts = 1;
-    // TODO: saveState();
+    saveState();
     renderAttempts();
     console.log(`Attempts: ${state.attempts}`);
+}
+
+function resetPanel() {
+    resetAttempts();
+    resetTimer();
 }
 
 // Boot
@@ -68,12 +65,30 @@ function init() {
     renderAttempts();
     renderTimer();
 
+    if (state.timerRunning) {
+        state.startTimestamp = Date.now();
+
+        renderInterval = setInterval(renderTimer, 10);
+        timerSaveInterval = setInterval(saveState, 2000);
+    }
+
     window.panel = {
         state,
         incrementAttempts,
+        decreaseAttempts,
+        resetAttempts,
+
+        startTimer,
+        stopTimer,
+        resetTimer,
+        setTimer,
+
+        resetPanel,
     };
 
-    console.log("Panel loaded. Try: panel.incrementAttempts()");
+    connectStreamerBotHotkeys({ port: 8080 });
+
+    console.log("Panel loaded. Try panel.[command]()");
 }
 
 init();
