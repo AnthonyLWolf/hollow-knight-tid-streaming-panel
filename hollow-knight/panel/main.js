@@ -1,9 +1,10 @@
 // main.js (v0 foundation)
 
 import { connectStreamerBotHotkeys } from "./modules/hotkeys-streamerbot.js"
-import { state, saveState, loadState } from "./data/state.js";
 import { togglePanelVisibility } from "./modules/panel.js";
+import { state, saveState, loadState } from "./data/state.js";
 import { formatTime, startTimer, stopTimer, setTimer, resetTimer, renderInterval, timerSaveInterval } from "./modules/timer.js";
+import { renderBossGrid, resetBosses } from "./modules/bosses.js";
 
 const ui = {
     attemptsValue: document.getElementById("attemptsValue"),
@@ -11,7 +12,7 @@ const ui = {
     bossGrid: document.getElementById("bossGrid"),
 };
 
-// Render functions (tiny on purpose)
+// Render functions
 function renderAttempts() {
     ui.attemptsValue.textContent = String(state.attempts);
 }
@@ -54,7 +55,7 @@ function resetAttempts() {
 function resetPanel() {
     resetAttempts();
     resetTimer();
-    // TODO: resetBosses();
+    resetBosses(state, ui.bossGrid, saveState);
 }
 
 // Boot
@@ -71,7 +72,11 @@ function init() {
         return;
     }
 
+    // Loads the latest state in local storage
     loadState();
+
+    // Renders boss grid
+    renderBossGrid(ui.bossGrid, state, saveState);
 
     // Browser source reload = timer must stop
     state.timerRunning = false;
@@ -112,6 +117,11 @@ function init() {
         togglePanelVisibility,
         resetPanel,
     };
+
+    // Control to reset bosses grid
+    window.panel.resetBosses = () => {
+        resetBosses(state, ui.bossGrid, saveState);
+    }
 
     // Emergency kill switch
     window.panel.hardReset = () => {

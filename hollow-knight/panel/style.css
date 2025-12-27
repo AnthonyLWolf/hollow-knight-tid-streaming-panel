@@ -78,11 +78,26 @@ body {
 .boss-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    gap: 0.5rem;
     margin-top: 1.5rem;
 }
 
 .boss-tile {
     aspect-ratio: 1/1;
-    background-color: #07414bc5;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.boss-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: filter 120ms ease, opacity 120ms ease, transform 120ms ease;
+}
+
+.boss-tile.is-defeated img {
+    filter: grayscale(100%);
+    opacity: 0.25;
 }

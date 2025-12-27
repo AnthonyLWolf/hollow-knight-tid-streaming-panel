@@ -7,7 +7,7 @@ export const state = {
     startTimestamp: 0,
     elapsedBefore: 0,
     timerRunning: false,
-    bosses: [], // TODO
+    bossesDefeated: {}, // { [bossID]: true }, checks if boss is present and defeated
 }
 
 export function saveState() {
