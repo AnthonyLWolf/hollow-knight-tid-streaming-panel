@@ -85,7 +85,10 @@ export function connectStreamerBotHotkeys({ port = 8080 } = {}) {
           break;
         
         // Panel hotkeys
-        case "HK_PanelReset":
+        case "HK_RunReset": // New Run: resets timer and bosses, but adds +1 attempt
+            window.panel?.resetRun?.();
+            break;
+        case "HK_PanelReset": // Resets the entire layout
             window.panel?.resetPanel?.();
             break;
         case "HK_PanelToggle":

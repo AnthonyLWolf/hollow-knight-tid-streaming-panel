@@ -36,7 +36,16 @@ export function renderTimer() {
     renderDebugOverlay(); // Refreshes debug menu
 }
 
-// Resets entire layout
+// Resets TIMER and BOSS GRID only, but +1 attempt. Good shortcut for a new run
+function resetRun() {
+    incrementAttempts()
+    resetTimer();
+    resetBosses(state, ui.bossGrid, saveState);
+
+    animatePanelReset();
+}
+
+// Resets entire layout, useful for a new game
 function resetPanel() {
     resetAttempts();
     resetTimer();
@@ -139,6 +148,7 @@ function init() {
         // UI panel controls
         togglePanelVisibility,
         resetPanel,
+        resetRun,
 
         // Boss grid controls
         bossRight: moveBossSelectionRight,
