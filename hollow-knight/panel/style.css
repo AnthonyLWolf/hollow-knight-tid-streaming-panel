@@ -112,7 +112,7 @@ body {
     top: 20px;
     right: 20px;
 
-    width: clamp(72px, 6vw, 110px);
+    width: clamp(180px, 6vw, 110px);
     height: calc(100vh - 40px);
 
     display: flex;
@@ -122,17 +122,42 @@ body {
     border: 4px solid #ed254e;
     background-color: #62dff5c5;
     padding: 14px;
+    overflow: hidden; /* Handles overflow of bosses */
+}
+
+/* Firefox sidebar styling */
+.boss-grid--sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(237, 37, 78, 0.65) transparent;
+}
+
+/* Chromium sidebar styling */
+.boss-grid--sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+.boss-grid--sidebar::-webkit-scrollbar-thumb {
+  background: rgba(237, 37, 78, 0.65);
+  border-radius: 999px;
+}
+.boss-grid--sidebar::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 /* Boss grid styling */
 
 .boss-grid--sidebar {
     margin-bottom: auto;
-    height: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: clamp(6px, 1vh, 14px);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 10px;
 }
 
 .boss-grid--sidebar .boss-tile {
@@ -173,6 +198,23 @@ body {
 
 .boss-tile.is-defeated {
     transform: scale(0.94);
+}
+
+/* Adds cute little skull to all defeated bosses */
+.boss-grid--sidebar .boss-tile.is-defeated::after {
+  content: "💀";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(26px, 5vw, 56px);
+  font-weight: 800;
+  color: var(--neon-red-base);
+  text-shadow:
+    0 0 6px rgba(237, 37, 78, 0.8),
+    0 0 16px rgba(237, 37, 78, 0.55);
+  opacity: 0.9;
+  pointer-events: none;
 }
 
 /* Added only on boss defeat */

@@ -45,6 +45,11 @@ export function renderBossGrid(container, state, saveState) {
         container.appendChild(tile);
     });
 
+    const selected = container.querySelector(".boss-tile.is-selected");
+    if (selected) {
+    selected.scrollIntoView({ block: "center", inline: "nearest" });
+    }
+
     renderDebugOverlay(); // Refreshes debug menu
 }
 
