@@ -17,7 +17,7 @@ const ui = {
 };
 
 // Columns for navigation
-const BOSS_COLUMNS = 4;
+const BOSS_COLUMNS = 1;
 
 // Smol render functions
 export function renderAttempts() {

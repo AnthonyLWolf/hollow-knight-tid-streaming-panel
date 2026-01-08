@@ -8,27 +8,31 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div class="panel-container">
-            <div class="module module--attempts-counter">
-                <h1 class="module__title">Attempts:</h1>
-                <p class="module__value" id="attemptsValue">1</p>
-            </div>
-            <div class="module module--run-timer">
-                <h1 class="module__title">Timer:</h1>
-                <p class="module__value" id="timerValue">00:00:00</p>
-            </div>
-            <div class="module module--bosses-list">
-                <h1 class="module__title">Bosses:</h1>
-                <div class="boss-grid" id="bossGrid">
-                    <div class="boss-tile"></div>
-                    <div class="boss-tile"></div>
-                    <div class="boss-tile"></div>
-                    <div class="boss-tile"></div>
+        <div class="panel-container-sidebar">
+            <div class="boss-sidebar">
+                <div class="module module--bosses-list">
+                    <h1 class="module__title">Bosses:</h1>
+                    <div class="boss-grid boss-grid--sidebar" id="bossGrid"></div>
                 </div>
             </div>
-            <div id="debugOverlay" class="debug-overlay hidden"></div>
-        </div>
-        
+
+                <div class="hud hud--timer">
+                    <div class="module module--run-timer">
+                        <h1 class="module__title">Timer:</h1>
+                        <p class="module__value" id="timerValue">00:00:00.00</p>
+                    </div>
+                </div>
+
+                <div class="hud hud--attempts">
+                    <div class="module module--attempts-counter">
+                        <h1 class="module__title">Attempts:</h1>
+                        <p class="module__value" id="attemptsValue">1</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="debug-overlay hidden" id="debugOverlay"></div>
         <script type="module" src="main.js"></script>
     </body>
 </html>

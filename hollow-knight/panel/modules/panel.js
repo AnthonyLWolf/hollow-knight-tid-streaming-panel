@@ -5,17 +5,17 @@ import { formatTime } from "./timer.js";
 
 // Toggles visibility to handle OBS connection logic
 export function togglePanelVisibility() {
-    document.querySelector(".panel-container").classList.toggle("panel-hidden")
+    document.querySelector(".panel-container-sidebar")?.classList.toggle("overlay-hidden");
 }
 
 // Subtle animation on Panel Reset
 export function animatePanelReset() {
-  const panel = document.querySelector(".panel-container");
-  if (!panel) return;
+    const panel = document.querySelector(".panel-container-sidebar");
+    if (!panel) return;
 
-  panel.classList.remove("is-resetting"); // safety
-  void panel.offsetWidth;                 // force reflow
-  panel.classList.add("is-resetting");
+    panel.classList.remove("is-resetting"); // safety
+    void panel.offsetWidth;                 // force reflow
+    panel.classList.add("is-resetting");
 }
 
 // Renders the debug overlay on request

@@ -14,6 +14,9 @@ export function incrementAttempts() {
 // Decrease function just in case
 export function decreaseAttempts() {
     state.attempts -= 1;
+    if (state.attempts <= 0) {
+        state.attempts = 1;
+    }
     saveState();
     renderAttempts();
     console.log(`Attempts: ${state.attempts}`);
