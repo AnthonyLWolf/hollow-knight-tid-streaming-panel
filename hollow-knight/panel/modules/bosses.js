@@ -9,7 +9,7 @@ export function renderBossGrid(container, state, saveState) {
     container.innerHTML = "";
 
     // For each boss, creates a tile with corresponding image
-    HK_BOSSES.forEach((boss, index) => {
+    [...HK_BOSSES].reverse().forEach((boss, index) => {
         const tile = document.createElement("div");
         tile.className = "boss-tile";
 
@@ -18,7 +18,9 @@ export function renderBossGrid(container, state, saveState) {
             tile.classList.add("is-defeated");
         }
 
-        if (index === state.selectedBossIndex) {
+        const visualIndex = HK_BOSSES.length - 1 - index;
+
+        if (visualIndex === state.selectedBossIndex) {
             tile.classList.add("is-selected");
         }
 

@@ -150,11 +150,11 @@ function init() {
         resetPanel,
         resetRun,
 
-        // Boss grid controls
-        bossRight: moveBossSelectionRight,
-        bossLeft: moveBossSelectionLeft,
-        bossUp: moveBossSelectionUp,
-        bossDown: moveBossSelectionDown,
+        // Boss grid controls. NOTE: Inverted due to reverse boss order
+        bossRight: moveBossSelectionLeft,
+        bossLeft: moveBossSelectionRight,
+        bossUp: moveBossSelectionDown,
+        bossDown: moveBossSelectionUp,
         selectBoss: toggleSelectedBoss,
 
         // Debug overlay
