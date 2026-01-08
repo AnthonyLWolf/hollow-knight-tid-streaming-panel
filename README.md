@@ -31,7 +31,7 @@ In its current form, **this panel is not a plug-and-play tool for other streamer
     - Increase/decrease attempts
     - Reset panel to original state, including timer and attempts
 
-- **Subtle CSS animations**: Neon pulse on the modules' borders to help add movement to the stream
+- **Subtle CSS animations**: Neon pulse on the modules' borders to help add movement to the stream, as well as on boss defeat (with a cute lil' skull emoji overlaid on defeated bosses)
 
 ## Future plans
 
