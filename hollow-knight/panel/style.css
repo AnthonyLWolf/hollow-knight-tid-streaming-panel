@@ -19,6 +19,11 @@
         url(../panel/assets/fonts/Poppins-SemiBoldItalic.ttf) format("truetype");
 }
 
+:root {
+    --neon-red-base: #ed254e;
+    --neon-red-hot: #ff4f73;
+}
+
 html {
     font-size: clamp(14px, 1.1vw, 32px);
 }
@@ -170,6 +175,11 @@ body {
     transform: scale(0.94);
 }
 
+/* Added only on boss defeat */
+.boss-tile.is-defeat-anim {
+  animation: bossDefeatPop 260ms ease-out;
+}
+
 .boss-tile.is-selected {
     outline: 3px solid #ed254e;
     outline-offset: 2px;
@@ -219,20 +229,43 @@ body {
     left: 20px;
 }
 
-/* TODO: Handles animations */
-
-
-/* TODO: Implement these 3 animations properly when there's time */
-.module--attempts-counter .module__value {
-  transition: transform 120ms ease-out;
+/* Handles neon pulse animations */
+.overlay-surface {
+    border: 4px solid var(--neon-red-base);
+    animation: neonPulse 9s ease-in-out infinite;
 }
 
-.module--attempts-counter.is-bump .module__value {
-  transform: scale(1.15);
+@keyframes neonPulse {
+  0%, 30% {
+    border-color: var(--neon-red-base);
+    box-shadow:
+      0 0 10px rgba(237, 37, 78, 0.35),
+      0 0 22px rgba(237, 37, 78, 0.15);
+    transform: scale(1);
+  }
+
+  50% {
+    border-color: var(--neon-red-hot);
+    box-shadow:
+      0 0 18px rgba(237, 37, 78, 0.9),
+      0 0 36px rgba(237, 37, 78, 0.35);
+    transform: scale(1.002);
+  }
+
+  70%, 100% {
+    border-color: var(--neon-red-base);
+    box-shadow:
+      0 0 10px rgba(237, 37, 78, 0.35),
+      0 0 22px rgba(237, 37, 78, 0.15);
+    transform: scale(1);
+  }
 }
 
-.module--run-timer.is-running {
-  box-shadow: 0 0 10px rgba(98, 223, 245, 0.6);
+/* Handles boss defeat animations */
+@keyframes bossDefeatPop {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.12); }
+  100% { transform: scale(1.06); }
 }
 
 .module--bosses-list {

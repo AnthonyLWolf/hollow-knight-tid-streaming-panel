@@ -18,6 +18,10 @@ export function renderBossGrid(container, state, saveState) {
             tile.classList.add("is-defeated");
         }
 
+        if (boss.id === state.lastDefeatedBossId) {
+            tile.classList.add("is-defeat-anim");
+        }
+
         const visualIndex = HK_BOSSES.length - 1 - index;
 
         if (visualIndex === state.selectedBossIndex) {
@@ -74,14 +78,21 @@ export function selectBossUp(state, columns) {
 
 // Toggles boss defeat state
 export function toggleBoss(bossId, state, container, saveState) {
-    if (state.bossesDefeated[bossId]) {
-        delete state.bossesDefeated[bossId];
-    } else {
-        state.bossesDefeated[bossId] = true;
-    }
+  const wasDefeated = !!state.bossesDefeated[bossId];
 
-    saveState();
-    renderBossGrid(container, state, saveState)
+  if (wasDefeated) {
+    delete state.bossesDefeated[bossId];
+    state.lastDefeatedBossId = null;
+  } else {
+    state.bossesDefeated[bossId] = true;
+    state.lastDefeatedBossId = bossId; // mark for animation
+  }
+
+  saveState();
+  renderBossGrid(container, state, saveState);
+
+  // clear the marker so it doesn't animate on future renders
+  state.lastDefeatedBossId = null;
 }
 
 // Allows reset of bosses grid
