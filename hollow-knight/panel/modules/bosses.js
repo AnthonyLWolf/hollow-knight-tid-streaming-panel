@@ -9,6 +9,7 @@ export function renderBossGrid(container, state, saveState) {
     container.innerHTML = "";
 
     // For each boss, creates a tile with corresponding image
+    // Boss list is reversed to show the Radiance at the top and simulate a climb to the final boss
     [...HK_BOSSES].reverse().forEach((boss, index) => {
         const tile = document.createElement("div");
         tile.className = "boss-tile";

@@ -1,6 +1,5 @@
 // Timer logic
 
-// Dependencies
 import { state, saveState, loadState } from "../data/state.js";
 import { renderTimer } from "../main.js";
 
