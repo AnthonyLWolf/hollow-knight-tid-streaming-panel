@@ -51,7 +51,9 @@ body {
 
 */
 
-.overlay-hidden {
+/* Hiding and resetting animation behaviours */
+
+.panel-hidden {
     transform: translateX(110%);
     opacity: 0;
     pointer-events: none;
@@ -98,6 +100,7 @@ body {
 }
 
 /* Specific modules styling */
+/** Boss sidebar with 1 column layout **/
 
 .boss-sidebar {
     position: absolute;
@@ -115,6 +118,8 @@ body {
     background-color: #62dff5c5;
     padding: 14px;
 }
+
+/** HUD elements (timer, attempts) **/
 
 .hud {
     position: absolute;
@@ -174,7 +179,7 @@ body {
     margin-top: 0;
 }
 
-/* OLD BOSS GRID STYLE
+/* OLD BOSS GRID STYLE, 4 COL LAYOUT
 .boss-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -182,6 +187,8 @@ body {
     margin-top: 1.5rem;
 }
  */
+
+/* Boss grid styling */
 
 .boss-grid--sidebar {
     margin-bottom: auto;
@@ -202,6 +209,8 @@ body {
     font-size: 0.9rem;
     margin: 0 0 6px 0;
 }
+
+/* Boss tile behaviour, styling, navigation elements */
 
 .boss-tile {
     aspect-ratio: 1/1;

@@ -5,7 +5,7 @@ import { formatTime } from "./timer.js";
 
 // Toggles visibility to handle OBS connection logic
 export function togglePanelVisibility() {
-    document.querySelector(".panel-container-sidebar")?.classList.toggle("overlay-hidden");
+    document.querySelector(".panel-container-sidebar")?.classList.toggle("panel-hidden");
 }
 
 // Subtle animation on Panel Reset
