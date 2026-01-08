@@ -10,6 +10,10 @@ When hosted locally and added to OBS, this panel connects to Streamer.bot via a 
 
 In its current form, **this panel is not a plug-and-play tool for other streamers** and will not work with other setups. It is simply a personal project for my streams. It is also branded in The Indie Diarist's core colours.
 
+## Example screenshot
+
+![Layout example screenshot in OBS](TID-Hollow-Knight-Panel-EXAMPLE.png)
+
 ## Modules in this version
 
 - **Boss List Sidebar**: A sidebar showing the list of mandatory bosses that need to be defeated in order to reach the end of the game, from False Knight to the Radiance. Bosses can be toggled on and off to mark their defeated or undefeated state
